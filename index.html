@@ -1,0 +1,30 @@
+
+<html>
+
+	<head>
+		<title>Coming soon...</title>
+		<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+	</head>
+
+	<body style="background-color: #f1f1f1;">
+	
+		<div class="text" style="padding: 50px; width: 200px;">
+			Coming soon.
+		</div>
+		
+		<script>
+		anime({
+			targets: '.text',
+			keyframes: [
+				{translateX: 50},
+				{translateX: 0}
+				],
+			duration: 2000,
+			easing: 'spring(1, 80, 10, 0)',
+			loop: true
+		});
+		</script>
+		
+	</body>
+
+</html>
