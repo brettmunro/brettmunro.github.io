@@ -2,27 +2,122 @@
 <html>
 
 	<head>
-		<title>Coming soon...</title>
-		<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+		<title>Brett Munro</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+
+		<style>
+			body {
+				margin: 1rem;
+				background-color: #f1f1f1;
+				font-family: sans-serif;
+				font-size: 20px;
+				color: #333333;
+				display: flex;
+				justify-content: center;
+			}
+			main {
+				display: inline-block;
+				  margin: 0 auto;
+				  max-width: 900px;    /* don’t let it grow too wide */
+				  width: max-content;  /* size to fit the .games-wrapper contents */
+			}
+
+			.logo {
+				font-family: Caveat, sans-serif;
+				font-size: 4rem;
+			}
+
+			.games-wrapper {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1rem;
+			}
+			.game-container {
+				flex: 1 1 200px;         /* prefers ~200px wide */
+				aspect-ratio: 200 / 350;
+				min-width: 200px;
+				max-width: 200px;
+
+				border-radius: 2rem;
+				box-shadow: inset 2px 2px 3px rgba(0,0,0,0.3);
+				background-position: center;
+				background-size: cover;
+				transition: transform 0.2s;
+			}
+			.game-container:hover {
+				transform: scale(1.05);
+				cursor: pointer;
+			}
+			.game-container.-rageball {
+				background-image: url("imgs/Screenshot_2023-05-13-02-51-00-88_246037c3df81233cfbee288d03a3f73e_1.jpg");
+				background-size: 130%;
+				background-position-y: -200px;
+			}
+			.game-container.-myth {
+				background-image: url("imgs/2025.9.5_001b.png");
+			}
+			.game-container.-cv {
+				background-image: url("imgs/cv.png");
+				background-size: 600%;
+			}
+			.border-inner {
+				width: 100%;
+				height: 100%;
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				border-radius: 1rem;
+				margin: 1px;
+			}
+
+			@media (max-aspect-ratio: 3/4) {
+
+				main { width: 100%; }
+
+				.games-wrapper {
+					flex-direction: column;
+					align-items: center;
+				}
+
+				.game-container {
+					width: 100%;
+					max-width: none;
+				}
+			}
+		</style>
+
 	</head>
 
-	<body style="background-color: #f1f1f1;">
+	<body>
 	
-		<div class="text" style="padding: 50px; width: 200px;">
-			Coming soon........
-		</div>
-		
+		<main>
+			<div class="logo">bm.</div>
+			<div class="games-wrapper" id="gameList"></div>
+		</main>
+
+		<template id="gameTemplate">
+			<div class="game-container -{{id}}"></div>
+		</template>
+
 		<script>
-		anime({
-			targets: '.text',
-			keyframes: [
-				{translateX: 50},
-				{translateX: 0}
-				],
-			duration: 2000,
-			easing: 'spring(1, 80, 10, 0)',
-			loop: true
-		});
+			const games =
+			[
+				{ id: "myth",   title: "Myth",   description: "" },
+				{ id: "rageball", title: "Rage Ball", description: "" },
+				{ id: "cv",   title: "Caesar V",   description: "" }
+			];
+
+			const container = document.getElementById("gameList");
+			const template = document.getElementById("gameTemplate").innerHTML;
+
+			games.forEach(game =>
+			{
+				const html = template.replace(/{{(.*?)}}/g, (_, key) => game[key.trim()]);
+				container.insertAdjacentHTML("beforeend", html);
+			});
+
+			document.getElementById("gameTemplate").remove();
+
 		</script>
 		
 	</body>
